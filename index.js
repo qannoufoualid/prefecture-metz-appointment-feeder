@@ -4,8 +4,7 @@ var http = require('http');
 var fs = require('fs');
 const nodemailer = require('nodemailer');
 const sgMail = require('@sendgrid/mail');
-
-SENDGRID_API_KEY = "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";
+require('dotenv').config()
 
 function PostCode() {
 
@@ -45,7 +44,7 @@ function PostCode() {
         if(chunk.indexOf('2018') > 0)
         {
           console.log("found")
-            sgMail.setApiKey(SENDGRID_API_KEY);
+            sgMail.setApiKey(process.env.SENDGRID_API_KEY);
             const msg = {
               to: 'oualidqannouf@gmail.com',
               from: 'test@example.com',
