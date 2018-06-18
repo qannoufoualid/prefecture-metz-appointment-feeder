@@ -4,6 +4,9 @@ var http = require('http');
 var fs = require('fs');
 const nodemailer = require('nodemailer');
 const sgMail = require('@sendgrid/mail');
+var express = require('express');
+var app = express();
+
 require('dotenv').config()
 
 function PostCode() {
@@ -63,6 +66,15 @@ function PostCode() {
 
 }
 
-
-
 setInterval(PostCode, 10000);
+
+app.get('/', (req, res) => res.send('Hello World!'))
+
+var server = app.listen(process.env.PORT || 80, function () {
+
+  var host = server.address().address
+  var port = server.address().port
+
+  console.log("Example app listening at http://%s:%s", host, port)
+
+})
