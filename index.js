@@ -68,7 +68,7 @@ function PostCode() {
 
 setInterval(PostCode, 10000);
 
-app.get('/', (req, res) => res.send('Hello World!'))
+app.get('/', (req, res) => res.send('Running!'))
 
 var server = app.listen(process.env.PORT || 80, function () {
 
