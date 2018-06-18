@@ -7,10 +7,12 @@ const nodemailer = require('nodemailer');
 const sgMail = require('@sendgrid/mail');
 var express = require('express');
 var app = express();
-const accountSid = 'AC9d63ef64f70e85f908b20efdf96f0d97';
-const authToken = '025336b41acb1f7077cee06a014c8d85';
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_TOKEN;
+
 const client = require('twilio')(accountSid, authToken);
 
+var previousChunk = "";
 
 
 function PostCode() {
@@ -50,26 +52,31 @@ function PostCode() {
       res.on('data', function (chunk) {
         if(chunk.indexOf('2018') > 0)
         {
-            console.log("Appointment found")
-            sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-            const msg = {
-              to: 'oualidqannouf@gmail.com',
-              from: 'test@example.com',
-              subject: 'Nouveaux rendez-vous à Metz',
-              text: 'Nouveaux rendez-vous à Metz! GO GO GO GO',
-              html: '<strong>Nouveaux rendez-vous à Metz! GO GO GO GO</strong>',
-            };
-            sgMail.send(msg);
+            if(previousChunk.length < chunk.length){
+                previousChunk = chunk;
+                console.log("Appointment found")
+                sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+                const msg = {
+                  to: 'oualidqannouf@gmail.com',
+                  from: 'wowlead@wowlead.com',
+                  subject: 'Nouveaux rendez-vous à Metz',
+                  text: 'Nouveaux rendez-vous à Metz! GO GO GO GO',
+                  html: 'Des nouveaux rendez-vous à la préfecture de Metz sont disponible!  Consulter rdv.moselle.gouv.fr',
+                };
+                sgMail.send(msg);
 
 
-            client.messages
-              .create({
-                 body: 'New appointments are available check rdv.moselle.gouv.fr',
-                 from: '+12267734512',
-                 to: '+33767375384'
-               })
-              .then(message => console.log(message.sid))
-              .done();
+                client.messages
+                  .create({
+                     body: 'Des nouveaux rendez-vous à la préfecture de Metz sont disponible! Consulter rdv.moselle.gouv.fr',
+                     from: '+12267734512',
+                     to: '+33767375384'
+                   })
+                  .then(message => console.log(message.sid))
+                  .done();
+            }
+            else if(previousChunk.length > chunk.length)
+              previousChunk = chunk;
 
         }
       });
