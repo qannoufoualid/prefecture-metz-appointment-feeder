@@ -21,8 +21,8 @@ function PostCode() {
     'c0-methodName':'getClosedDaysList',
     'c0-id':0,
     'c0-param0':'boolean:false',
-    'c0-param1':'string:0',
-    'c0-param2':'string:40',
+    'c0-param1':'string:1',
+    'c0-param2':'string:27',
     'batchId':0
   });
 
