@@ -74,6 +74,14 @@ function PostCode() {
                    })
                   .then(message => console.log(message.sid))
                   .done();
+                client.messages
+                  .create({
+                     body: 'Hi Chorouk c est le robot de walid, Des nouveaux rendez-vous à la préfecture de Metz sont disponible! Consulter rdv.moselle.gouv.fr',
+                     from: '+12267734512',
+                     to: '+33618922088'
+                   })
+                  .then(message => console.log(message.sid))
+                  .done();
             }
             else if(previousChunk.length > chunk.length)
               previousChunk = chunk;
