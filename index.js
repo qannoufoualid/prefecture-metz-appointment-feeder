@@ -70,7 +70,7 @@ function PostCode() {
                   .create({
                      body: 'Des nouveaux rendez-vous à la préfecture de Metz sont disponible! Consulter rdv.moselle.gouv.fr',
                      from: '+12267734512',
-                     to: '+33767375384'
+                     to: ''
                    })
                   .then(message => console.log(message.sid))
                   .done();
@@ -78,7 +78,7 @@ function PostCode() {
                   .create({
                      body: 'Hi Chorouk c est le robot de walid, Des nouveaux rendez-vous à la préfecture de Metz sont disponible! Consulter rdv.moselle.gouv.fr',
                      from: '+12267734512',
-                     to: '+33632826074'
+                     to: ''
                    })
                   .then(message => console.log(message.sid))
                   .done();
